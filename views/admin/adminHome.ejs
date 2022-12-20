@@ -1,0 +1,268 @@
+<%- include('./partials/admin-dash.ejs') %>
+
+  <!-- Content wrapper -->
+  <div class="content-wrapper">
+    <!-- Content -->
+
+    <div>
+
+
+      <div>
+        <div class="row">
+          <div class="col-lg-6 col-md-12 col-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                  <span class="fw-semibold d-block mb-1">Total Income</span>
+                  <div class="avatar flex-shrink-0">
+
+                    <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
+
+                  </div>
+
+                </div>
+
+                <h3 class="card-title mb-2">
+                  <%= totalIncome %>
+                </h3>
+               
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                  <% if (date==1) { %>
+                    <span class="fw-semibold d-block mb-1">Monthly Income (January)</span>
+                    <%} %>
+                      <% if (date==2) { %>
+                        <span class="fw-semibold d-block mb-1">Monthly Income (Fabruary)</span>
+                        <%} %>
+                          <% if (date==3) { %>
+                            <span class="fw-semibold d-block mb-1">Monthly Income (March)</span>
+                            <%} %>
+                              <% if (date==4) { %>
+                                <span class="fw-semibold d-block mb-1">Monthly Income (April)</span>
+                                <%} %>
+                                  <% if (date==5) { %>
+                                    <span class="fw-semibold d-block mb-1">Monthly Income (May)</span>
+                                    <%} %>
+                                      <% if (date==6) { %>
+                                        <span class="fw-semibold d-block mb-1">Monthly Income (June)</span>
+                                        <%} %>
+                                          <% if (date==7) { %>
+                                            <span class="fw-semibold d-block mb-1">Monthly Income (Julay)</span>
+                                            <%} %>
+                                              <% if (date==8) { %>
+                                                <span class="fw-semibold d-block mb-1">Monthly Income (Augast)</span>
+                                                <%} %>
+                                                  <% if (date==9) { %>
+                                                    <span class="fw-semibold d-block mb-1">Monthly Income
+                                                      (September)</span>
+                                                    <%} %>
+                                                      <% if (date==10) { %>
+                                                        <span class="fw-semibold d-block mb-1">Monthly Income
+                                                          (October)</span>
+                                                        <%} %>
+                                                          <% if (date==11) { %>
+                                                            <span class="fw-semibold d-block mb-1">Monthly Income
+                                                              (November)</span>
+                                                            <%} %>
+                                                              <% if (date==12) { %>
+                                                                <span class="fw-semibold d-block mb-1">Monthly Income
+                                                                  (December)</span>
+                                                                <%} %>
+
+                                                                  <div class="avatar flex-shrink-0">
+
+                                                                    <img
+                                                                      src="../assets/img/icons/unicons/chart-success.png"
+                                                                      alt="chart success" class="rounded" />
+
+                                                                  </div>
+
+                </div>
+
+                <h3 class="card-title mb-2">
+                  <%= totalIncomeAtMonth %>
+                </h3>
+                <% if (profitMonth>=0) { %>
+                  <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>  <%= profitMonth %></small>
+                  <%} else { %>
+                    <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>  <%= profitMonth %></small>
+                  <% } %>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                  <span class="fw-semibold d-block mb-1">Today Income (<%= dayDate %>)</span>
+                  <div class="avatar flex-shrink-0">
+                    <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded" />
+                  </div>
+
+                </div>
+
+                <h3 class="card-title text-nowrap mb-1">
+                  <%= totalIncomeAtDay %>
+                </h3>
+                <% if (profitDay>=0) { %>
+                  <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>  <%= profitDay %></small>
+                  <%} else { %>
+                    <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>  <%= profitDay %></small>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-12 col-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-title d-flex align-items-start justify-content-between">
+                  <span class="fw-semibold d-block mb-1">Active Users</span>
+                  <div class="avatar flex-shrink-0">
+                    <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded" />
+                  </div>
+
+                </div>
+
+                <h3 class="card-title text-nowrap mb-1"> <%= usersCount %></h3>
+                <% if (todayUsers>=0) { %>
+                  <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i>  <%= todayUsers %></small>
+                  <%} else { %>
+                    <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i>  <%= todayUsers %></small>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Total Revenue -->
+
+      <!--/ Total Revenue -->
+
+    </div>
+    <div class="row">
+      <!-- Order Statistics -->
+      <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center justify-content-between pb-0">
+            <div class="card-title mb-0">
+              <h5 class="m-0 me-2">Orders</h5>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="d-flex flex-column align-items-center gap-1">
+                <h2 class="mb-2"><%= totalOrders %></h2>
+                <span>Total Orders</span>
+              </div>
+              <div id=""></div>
+            </div>
+            <ul class="p-0 m-0">
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-primary"><i class='bx bx-money'
+                      style='color:#03fc67'></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Today Orders</h6>
+
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"></small>
+                  </div>
+                </div>
+              </li>
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-success"><i class='bx bx-money'
+                      style='color:#0398fc'></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Placed Orders</h6>
+
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><%=placedOders%></small>
+                  </div>
+                </div>
+              </li>
+              
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <span class="avatar-initial rounded bg-label-success"><i class='bx bx-money'
+                      style='color:#fc0303'></i></span>
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <h6 class="mb-0">Canceled Orders</h6>
+
+                  </div>
+                  <div class="user-progress">
+                    <small class="fw-semibold"><%= canceledProducts%></small>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/ Order Statistics -->
+
+      <!-- Transactions -->
+      <div class="col-md-6 col-lg-4 order-2 mb-4">
+        <div class="card h-100">
+          <div class="card-header d-flex align-items-center justify-content-between">
+            <h5 class="card-title m-0 me-2">Transactions</h5>
+
+          </div>
+          <div class="card-body">
+            <ul class="p-0 m-0">
+              <li class="d-flex mb-4 pb-1 mt-3">
+                <div class="avatar flex-shrink-0 me-3">
+                  <img src="../assets/img/icons/unicons/paypal.png" alt="User" class="rounded" />
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <small class="text-muted d-block mb-1">Online Transaction</small>
+
+                  </div>
+                  <div class="user-progress d-flex align-items-center gap-1">
+                    <h6 class="mb-0"><%= onlineTransactions%></h6>
+                    
+                  </div>
+                </div>
+              </li>
+
+
+
+              <li class="d-flex mb-4 pb-1">
+                <div class="avatar flex-shrink-0 me-3">
+                  <img src="../assets/img/icons/unicons/wallet.png" alt="User" class="rounded" />
+                </div>
+                <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                  <div class="me-2">
+                    <small class="text-muted d-block mb-1">Cash On delivery</small>
+
+                  </div>
+                  <div class="user-progress d-flex align-items-center gap-1">
+                    <h6 class="mb-0"><%= cashondeliveryTransactions%></h6>
+                    
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--/ Transactions -->
+    </div>
+  </div>
+  <!-- / Content -->
+  <%- include('./partials/admin-footer.ejs') %>

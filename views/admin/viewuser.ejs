@@ -1,0 +1,44 @@
+<%- include('./partials/admin-dash.ejs') %>
+              <!-- Bootstrap Table with Header - Dark -->
+              <div class="card">
+                <h5 class="card-header">Dark Table head</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead class="table-dark">
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                      <% users.forEach(function(user){ %>
+                      <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><%= user.firstName %></strong></td>
+                        <td><%= user.lastName %></td>
+                       
+                        <td><span class=" bg-label-primary me-1"><%= user.email %></span></td>
+                        <td><%= user.phone %></td>
+                        <td>
+                          <% if (user.status=="Blocked" ) { %>
+                            <form action="/admin/unblockUser/<%= user._id %> " method="post">
+                              <button type="submit" class="btn btn-success" style="width: 100px;"> UnBlock</button>
+                            </form>
+                            <% } else { %>
+                              <form action="/admin/blockUser/<%= user._id %> " method="post">
+                                <button type="submit" class="btn btn-danger" style="width: 100px;">
+                                  Block</button>
+                              </form>
+                              <% } %>
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!--/ Bootstrap Table with Header Dark -->
+
+              <%- include('./partials/admin-footer.ejs') %>

@@ -1,0 +1,113 @@
+<script>
+  function QuantityInc(ProductId, count) {
+    let qua = document.getElementById(`sst${ProductId}`).value;
+    console.log(qua, "quaquaquaquaquaqua");
+
+    console.log(count, "vcount");
+    console.log(ProductId, "ProductId");
+    $.ajax({
+      url: "/quantityInc/" + ProductId,
+      method: "get",
+      success: (response) => {
+        if (response.status) {
+          console.log("susses");
+          let prodPrice = $(`#price${ProductId}`).html();
+          let productPrice = parseInt(prodPrice);
+
+          let price = $(`#totalPrice${ProductId}`).html();
+          let Price = parseInt(price);
+
+          let quantity = document.getElementById(`sst${ProductId}`).value;
+          let Quantity = parseInt(quantity);
+          console.log(Quantity, "QuantityQuantityQuantityQuantityQuantity");
+
+          document.getElementById(`totalPrice${ProductId}`).innerHTML =
+            Quantity * productPrice;
+
+          let subtotal = document.getElementById("subtotal").innerHTML;
+          subtotal = parseInt(subtotal);
+          document.getElementById("subtotal").innerHTML =
+            subtotal + productPrice;
+        }
+      },
+    });
+  }
+  function QuantityDec(ProductId, count) {
+    console.log(count, "count");
+    if (count > 1) {
+      $.ajax({
+        url: "/quantityDec/" + ProductId,
+        method: "get",
+        success: (response) => {
+          if (response.status) {
+            let Quantity = document.getElementById("sst" + ProductId).value;
+            console.log(Quantity);
+            let Price = document.getElementById("price" + ProductId).innerHTML;
+            console.log(Price);
+            document.getElementById("totalPrice" + ProductId).innerHTML =
+              Quantity * Price;
+            let subtotal = document.getElementById("subtotal").innerHTML;
+            subtotal = parseInt(subtotal);
+            Price = parseInt(Price);
+            document.getElementById("subtotal").innerHTML = subtotal - Price;
+          }
+        },
+      });
+    } else {
+      $.ajax({
+        url: "/removeCart/" + ProductId,
+        method: "get",
+        success: (responce) => {
+          window.location = "/shoping-cart";
+        },
+      });
+    }
+  }
+</script>
+
+
+
+<script>
+  function sendData(e){
+      const searchResult= document.getElementById('searchResult')
+      let match=e.match(/^[a-zA-Z]*/)
+      let match2=e.match(/\s*/);
+      if(match2[0]==e){
+          searchResult=innerHTML='';
+          return
+      }
+      if(match[0]==e){
+          fetch('getProducts',{
+      method:'POST',
+      headers:{'Content-Type': 'application/json; charset=utf-8', },
+      body:JSON.stringify({searchInput:e})
+  }).then(res=> res.json()).then(data=>{
+      let searchInput=data.searchInput;
+      console.log(searchInput);
+      searchResult.innerHTML='';
+      if(searchInput.length<1){
+          searchResult.innerHTML= '<p>Sorry. Nothig Found.</p>'
+          return;
+      }
+      searchInput.forEach((item,index)=>{
+          if(index>0)searchResult.innerHTML+='<hr>'
+          searchResult.innerHTML+='<p>$()</p>';
+
+      })
+      })
+  
+      return;
+  }
+ 
+}
+ </script>
+
+
+
+
+
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" class="template-customizer-core-css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" class="template-customizer-core-css" />
+
+

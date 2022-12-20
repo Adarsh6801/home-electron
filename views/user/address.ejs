@@ -1,0 +1,166 @@
+<%- include('./partials/userHeader.ejs') %>
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary ml-4" data-toggle="modal" data-target="#exampleModalCenter">
+    Add
+  </button>
+  
+  <!-- Modal -->
+  
+        <div class="modal fade" id="exampleModalCenter" data-bs-backdrop="static"
+        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Address</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="/addAddress" method="post">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name</label>
+                                <input class="form-control" type="text" value="" name="firstName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name</label>
+                                <input class="form-control" type="text" value="" name="lastName">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Mobile No</label>
+                                <input class="form-control" type="text" value="" name="mobileNo">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Address Line</label>
+                                <input class="form-control" type="text" value="" name="address">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>City</label>
+                                <input class="form-control" type="text" value="" name="city">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Locality</label>
+                                <input class="form-control" type="text" value="" name="locality">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Landmark</label>
+                                <input class="form-control" type="text" value="" name="landmark">
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Pin Code</label>
+                                <input class="form-control" type="text" value="" name="pinCode">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                data-dismiss="modal">Close</button>
+                                <button type="submit"
+                                    class="btn btn-primary font-weight-bold">Edit
+                                    Address</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="row ml-2 mt-4">
+        <% userAddress.Address.forEach(function(x,index){ %>
+        <div class="col-md-6 col-xl-4">
+            <div class="card shadow-none bg-transparent border border-danger mb-3">
+                <div>
+                    <button type="button" class="btn " data-toggle="modal" data-target="#exampleeddit<%= index%>">
+                        <i class='bx bxs-edit'></i>
+                      </button>
+                  
+                    <a href="/user_address/delete?id=<%= index%>" class="text-danger"><i class='bx bx-message-alt-x'></i></a>
+                </div>
+                
+                <div class="card-body text-center">
+
+
+                    <h5 class="align-middle text-dark font-weight-bold"><%= x.firstName%>
+                        <%= x.lastName%></h5>
+                    <p style="font-size: 0.75rem;" class="align-middle text-dark font-weight-bold">
+                        <%= x.mobileNo%></p>
+                    <p style="font-size: 0.9rem;" class="align-middle text-dark font-weight-bold">
+                        <%= x.address%></p>
+                    <p style="font-size: 0.9rem;" class="align-middle text-dark font-weight-bold">
+                        <%= x.landmark%>,<%= x.locality%></p>
+                    <p style="font-size: 0.9rem;" class="align-middle text-dark font-weight-bold">
+                        <%= x.city%></p>
+                    <p style="font-size: 0.76rem;" class="align-middle text-dark font-weight-bold">
+                        ( <%= x.pinCode%>)</p>
+
+                </div>
+               
+            </div>
+        </div>
+       
+    
+
+<!-- Modal -->
+  
+<div class="modal fade" id="exampleeddit<%= index%>" data-bs-backdrop="static"
+data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Address</h1>
+        </div>
+        <div class="modal-body">
+            <form action="/user_address/edit?id=<%= index%>" method="post">
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" value="<%= x.firstName%>" name="firstName">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" value="<%= x.lastName%>" name="lastName">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Mobile No</label>
+                        <input class="form-control" type="text" value="<%= x.mobileNo%>" name="mobileNo">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Address Line</label>
+                        <input class="form-control" type="text" value="<%= x.address%>" name="address">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>City</label>
+                        <input class="form-control" type="text" value="<%= x.city%>" name="city">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Locality</label>
+                        <input class="form-control" type="text" value="<%= x.locality%>" name="locality">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Landmark</label>
+                        <input class="form-control" type="text" value="<%= x.landmark%>" name="landmark">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Pin Code</label>
+                        <input class="form-control" type="text" value="<%= x.pinCode%>" name="pinCode">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                        data-dismiss="modal">Close</button>
+                        <button type="submit"
+                            class="btn btn-primary font-weight-bold">Edit
+                            Address</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<% }) %>
+</div>
+
+    <%- include('./partials/userFooter.ejs') %>

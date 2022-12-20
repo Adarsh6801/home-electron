@@ -1,0 +1,80 @@
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous"
+  />
+  
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script> 
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+
+<%- include('./partials/admin-dash.ejs') %>
+    <section>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">Add product</h2>
+                    <form action="/admin/addproducts" method="POST" enctype="multipart/form-data">
+                        <label for="">Name</label>
+                        <input type="text" name="productName" class="form-control" required="">
+                        <label for="">Brand</label>
+                        <input type="text" name="Brand" class="form-control" required="">
+                        <label for="">Type</label>
+                        
+                        <label for="input-1">Applience</label>
+                        <select class="group input-group form-control" name="Applience">
+                          <option value="" selected >Select your Applience</option>
+                          <% Applience.forEach(function(x){ %>
+                  
+                            <option value="<%= x._id%>">
+                              <%= x.Applience %>
+                            </option>
+                            <% }) %>
+                        </select>
+
+
+
+      <label for="input-1">Category</label>
+      <select class="group input-group form-control" name="Category">
+        <option value="" selected >Select Your Vehicle Type</option>
+        <% category.forEach(function(x){ %>
+
+          <option value="<%= x._id%>">
+            <%= x.Category %>
+          </option>
+          <% }) %>
+      </select>
+                       
+    
+                        <label for="">Discription</label>
+                        <input type="text" name="Discription" class="form-control" required="" >
+    
+                       
+    
+                        <label for="">Price</label>
+                        <input type="text" name="Price" class="form-control" required="">
+                        <label for="">Image</label>
+                        <input type="file" name="image" class="form-control" required="">
+    
+                        <button type="submit" class="btn btn-success mt-4">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+    
+
+  
+    <%- include('./partials/admin-footer.ejs') %>
+

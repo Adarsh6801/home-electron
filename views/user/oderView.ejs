@@ -1,0 +1,451 @@
+<%- include('./partials/userHeader.ejs') %>
+
+
+
+
+<style>
+  
+
+    .head {
+            margin: 50px 0px;
+            text-align: center;
+            color: #36494f;
+            width: 100%;
+        }
+
+        
+
+        .oderdiv {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+            max-width: 1000px;
+            margin: 10px auto;
+        }
+
+        .oderdiv ul {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .oderdiv ul li {
+            padding: 10px 10px;
+            background: white;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            list-style-type: none;
+            box-shadow: 0px 0px 3px rgb(194 186 186 / 30%);
+            cursor: pointer;
+            border-radius: 0px;
+            transition: all 0.3s ease;
+        }
+
+        .oderdiv ul li:not(:last-of-type) {
+            /* add border beside last element */
+            border-right: 1px solid white;
+        }
+
+        .oderdiv ul li:hover {
+            background: rgb(255, 102, 102);
+            color: #FFF;
+            transition: all 0.3s ease;
+        }
+
+        #first-dynamic-table,
+        #first-dynamic-table-2 {
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0px 0px 3px rgb(18 16 16 / 30%);
+            padding: 35px 15px;
+             color: #36494f;
+        }
+
+
+
+        /*Main Style*/
+        .tab-item.active {
+            background: #36494f;
+            color: white;
+        }
+
+        .tab-content {
+            width: 100%;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /*Main Style*/
+</style>
+
+<div class="oderdiv">
+    <h1 class="head">Oders</h1>
+ 
+         <ul>
+             <li class="tab-item active" target-wrapper="first-dynamic-table" target-tab="home">Orders</li>
+             <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="about">Delivered Orders</li>
+             <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="faqs">Canceled Orders</li>
+             <li class="tab-item" target-wrapper="first-dynamic-table" target-tab="contact">Oder History</li>
+         </ul>
+         <div id="first-dynamic-table">
+             <div  class="tab-content active" id="home">
+
+                <% if(placedOders==''){ %>
+                    <p>No Oders are placed</p>
+                    <a href="/shopView">Continue Shopping place your order</a>
+                <% } else{ %>
+                  
+                    <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">All Oders</h5>
+                            <div class="table-responsive">
+                              
+                              <table class="table table-hover">
+                                <thead class="text-center">
+                                  <tr>
+                                    
+                                    <th scope="col">Date </th>
+                                    <th scope="col">Address</th>
+                                    
+                                    <th scope="col">Pincode</th>
+                                    <th scope="col">Mobile No</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Payment </th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Oders</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    
+                                
+                                    <% placedOders.forEach((x) => { %>
+                                    
+                                    <tr>
+                                 
+                                      <td>
+                                        <%=x.createdAt%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.address%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.pinCode%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.mobileNo%>
+                                      </td>
+                                      <td>
+                                        <%=x.totalAmount%>
+                                      </td>
+                                      <td>
+                                        <%=x.paymentMethod%>
+                                      </td>
+                                      <td>
+                                        <%=x.orderStatus%>
+                                      </td>
+                                      
+                                      <td>
+                                        <a class="ml-3 btn btn-primary px-3" href='
+                                        /singleOder/<%=x._id%>'><i class="fa fa-shopping-cart"></i>View</a>
+                                           
+                                      </td>
+                    
+                    
+                                    </tr>
+                                    
+                    
+                                    <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                       
+                      </div>
+                <% } %>
+                
+                
+             </div>
+             <div  class="tab-content" id="about">
+                <% if(deliveredOders==''){ %>
+                    <p class="text-center">No Oders are delivered</p>
+                    <a href="/shopView">Continue Shopping place your order</a>
+                <% } else{ %>
+                    <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">All Oders</h5>
+                            <div class="table-responsive">
+                              
+                              <table class="table table-hover">
+                                <thead class="text-center">
+                                  <tr>
+                                    
+                                    <th scope="col">Date </th>
+                                    <th scope="col">Address</th>
+                                    
+                                    <th scope="col">Pincode</th>
+                                    <th scope="col">Mobile No</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Payment </th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Oders</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    
+                                
+                                    <% deliveredOders.forEach((x) => { %>
+                                    
+                                    <tr>
+                                 
+                                      <td>
+                                        <%=x.createdAt%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.address%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.pinCode%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.mobileNo%>
+                                      </td>
+                                      <td>
+                                        <%=x.totalAmount%>
+                                      </td>
+                                      <td>
+                                        <%=x.paymentMethod%>
+                                      </td>
+                                      <td class="text-success">
+                                        <%=x.orderStatus%>
+                                      </td>
+                                      
+                                      <td>
+                                        <a class="ml-3 btn btn-primary px-3" href='
+                                        /singleOder/<%=x._id%>'><i class="fa fa-shopping-cart"></i>View</a>
+                                           
+                                      </td>
+                    
+                    
+                                    </tr>
+                                    
+                    
+                                    <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                       
+                      </div>
+                <% } %>
+
+               
+             </div>
+             <div  class="tab-content" id="faqs">
+                <% if(cancelOders==''){ %>
+                    <p class="text-center">No Canceled Oders</p>
+                    <a href="/shopView">Continue Shopping place your order</a>
+                <% } else{ %>
+                   
+                    <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">All Oders</h5>
+                            <div class="table-responsive">
+                              
+                              <table class="table table-hover">
+                                <thead class="text-center">
+                                  <tr>
+                                    
+                                    <th scope="col">Date </th>
+                                    <th scope="col">Address</th>
+                                    
+                                    <th scope="col">Pincode</th>
+                                    <th scope="col">Mobile No</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Payment </th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Oders</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    
+                                
+                                    <% cancelOders.forEach((x) => { %>
+                                    
+                                    <tr>
+                                 
+                                      <td>
+                                        <%=x.createdAt%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.address%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.pinCode%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.mobileNo%>
+                                      </td>
+                                      <td>
+                                        <%=x.totalAmount%>
+                                      </td>
+                                      <td>
+                                        <%=x.paymentMethod%>
+                                      </td>
+                                      <td class="text-danger">
+                                        <%=x.orderStatus%>
+                                      </td>
+                                      
+                                      <td>
+                                        <a class="ml-3 btn btn-primary px-3" href='
+                                        /singleOder/<%=x._id%>'><i class="fa fa-shopping-cart"></i>View</a>
+                                           
+                                      </td>
+                    
+                    
+                                    </tr>
+                                    
+                    
+                                    <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                       
+                      </div>
+                <% } %>
+                
+             </div>
+             <div class="tab-content" id="contact">
+                <% if(allOders==''){ %>
+                    <p class="text-center">No Canceled Oders</p>
+                    <a href="/shopView">Continue Shopping place your order</a>
+                <% } else{ %>
+                    <div class="col-lg-12">
+                        <div class="card">
+                          <div class="card-body">
+                            <h5 class="card-title">All Oders</h5>
+                            <div class="table-responsive">
+                              
+                              <table class="table table-hover">
+                                <thead class="text-center">
+                                  <tr>
+                                    
+                                    <th scope="col">Date </th>
+                                    <th scope="col">Address</th>
+                                    
+                                    <th scope="col">Pincode</th>
+                                    <th scope="col">Mobile No</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Payment </th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">View Oders</th>
+                                   
+                                  </tr>
+                                </thead>
+                                <tbody class="text-center">
+                                    
+                                
+                                    <% allOders.forEach((x) => { %>
+                                    
+                                    <tr>
+                                 
+                                      <td>
+                                        <%=x.createdAt%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.address%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.pinCode%>
+                                      </td>
+                                      <td>
+                                        <%=x.Address.mobileNo%>
+                                      </td>
+                                      <td>
+                                        <%=x.totalAmount%>
+                                      </td>
+                                      <td>
+                                        <%=x.paymentMethod%>
+                                      </td>
+                                      <td>
+                                        <%=x.orderStatus%>
+                                      </td>
+                                      
+                                      <td>
+                                        <a class="ml-3 btn btn-primary px-3" href='
+                                        /singleOder/<%=x._id%>'><i class="fa fa-shopping-cart"></i>View</a>
+                                           
+                                      </td>
+                    
+                    
+                                    </tr>
+                                    
+                    
+                                    <% }) %>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                       
+                      </div>
+                <% } %>
+                
+             </div>
+         </div>
+     </div>
+ 
+
+<script>
+    let tabSwitchers = document.querySelectorAll('[target-wrapper]')
+        tabSwitchers.forEach(item => {
+            item.addEventListener('click', (e)=> {
+                let currentWrapperId = item.getAttribute('target-wrapper')
+                let currentWrapperTargetId = item.getAttribute('target-tab')
+                
+                let currentWrapper =  document.querySelector(`#${currentWrapperId}`)
+                let currentWrappersTarget = document.querySelector(`#${currentWrapperTargetId}`)
+
+                let allCurrentTabItem = document.querySelectorAll(`[target-wrapper='${currentWrapperId}']`)
+                let allCurrentWrappersTarget = document.querySelectorAll(`#${currentWrapperId} .tab-content`)
+              
+                if(currentWrappersTarget) {
+                    if(!currentWrappersTarget.classList.contains('active')) {
+                        allCurrentWrappersTarget.forEach(tabItem => {
+                            tabItem.classList.remove('active')
+                        })
+                        allCurrentTabItem.forEach(item => {
+                            item.classList.remove('active')
+                        })
+                        item.classList.add('active')
+                        currentWrappersTarget.classList.add('active')
+                    }
+                }
+            })
+        })
+</script>
+
+
+
+
+
+
+
+
+<%- include('./partials/userFooter.ejs') %>

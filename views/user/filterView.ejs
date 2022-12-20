@@ -1,0 +1,215 @@
+<%- include('./partials/userHeader.ejs') %>
+    <!-- Shop Start -->
+    <% if(productsDetail){ %>
+        <div class="container-fluid">
+            <div class="row px-xl-5">
+                
+    
+                <div class="col-lg-3 col-md-4">
+                   
+                    
+                    <!-- Color Start -->
+                    <h5 class="section-title position-relative text-center text-uppercase mb-3"><span class="bg-secondary pr-3"><i class="fa fa-search"></i> Filter</span></h5>
+    
+                    
+                    <div class="bg-light p-4 mb-30">
+                        <form action="/filtering" method="post">
+                            <h6 class=" section-title text-center text-uppercase mb-3" >Category</h6>
+                            <% category.forEach(function(x) { %>
+                                <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="<%= x.Category %>" name="Category">
+                                <label class="m-0 ml-1" for=""><%= x.Category %></label>
+                            </div>
+                            <% }) %>
+                          
+                                <div class="dropdown-divider"></div>
+                                <h6 class=" section-title text-center text-uppercase mb-3" >Appliences</h6>
+                            <% applience.forEach(function(x) { %>
+                                <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="<%= x.Applience %>" name="Applience">
+                                <label class="m-0 ml-1" for=""><%= x.Applience %></label>
+                            </div>
+                            <% }) %>
+                            <div class="dropdown-divider"></div>
+                            <h6 class=" section-title text-center text-uppercase mb-3" >Price</h6>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="1000" name="Price">
+                                <label class="m-0 ml-1" for="">Below 1000</label>
+                            </div>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="5000" name="Price">
+                                <label class="m-0 ml-1" for="">Below 5000</label>
+                            </div>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="10000" name="Price">
+                                <label class="m-0 ml-1" for="">Below 10000</label>
+                            </div>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="15000" name="Price">
+                                <label class="m-0 ml-1" for="">Below 15000</label>
+                            </div>
+                            <div
+                                class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                <input class="form-check-input check"  type="checkbox" value="30000" name="Price">
+                                <label class="m-0 ml-1" for="">Below 30000</label>
+                            </div>
+    
+                            <button class="btn btn-block btn-primary font-weight-bold my-3 py-3" type="submit">Procede</button>
+                        </form>
+                    </div>
+                    <!-- Color End -->
+    
+                   
+    
+                </div>
+                
+    
+    
+    
+                <div class="col-lg-9 col-md-8">
+                    <div class="row">
+                        <div class="col-12 pb-1">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                
+                            </div>
+                        </div>
+                        
+    
+                       
+                       
+                        
+                        <% products.forEach(function(product){ %>
+    
+                         
+                        <div class="col-lg-4 col-md-6 col-sm-6 pb-1">
+                            <div class="product-item bg-light mb-4">
+                                <div class="product-img position-relative overflow-hidden">
+                                    <img class="img-fluid w-100" src="/images/productImages/<%= product.image %>" alt="">
+    
+                                    
+                                    
+                                    <div class="product-action">
+                                       
+                                        <a class="btn btn-outline-dark btn-square" href="/singleProduct/<%= product._id %>"><i class="fa fa-search"></i></a>
+    
+    
+    
+                                            <a class="btn btn-outline-dark btn-square" onclick= "addTocart('<%= product._id %>','<%= product.productName %>','<%= product.Price %>')"><i class="fa fa-shopping-cart"></i></a>
+                                            
+                                            <a class="btn btn-outline-dark btn-square" onclick="addToWishlist('<%= product._id %>','<%= product.productName %>')" ><i class="far fa-heart"></i></a>
+                                            
+                                       
+    
+    
+    
+                                      
+                                        
+    
+                                    </div>
+                                </div>
+                                <div class="text-center py-4">
+                                    <a class="h5 text-decoration-none text-truncate" href=""> <%= product.productName%></a>
+                                    
+                                    <div class="d-flex align-items-center justify-content-center mt-2">
+                                        <h5>₹<%= product.Price%></h5><h6 class="text-muted ml-2"><del>100</del></h6>
+                                    </div>
+                                    
+                                    <div class="d-flex align-items-center justify-content-center mb-1">
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="fa fa-star text-primary mr-1"></small>
+                                        <small class="far fa-star text-primary mr-1"></small>
+                                        <small class="far fa-star text-primary mr-1"></small>
+                                        <small>(50)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+    
+                    </div>
+                </div>
+                
+                
+            </div>
+    
+    
+    
+    
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <% if(currentPage==1){ %>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="" tabindex="-1">Previous</a>
+                          </li>
+                    <% } else{ %>
+                        <li class="page-item ">
+                            <a class="page-link" href="/filtering/?page=<%=currentPage-1 %>" tabindex="-1">Previous</a>
+                          </li>
+                    <% } %>
+    
+                  
+                  <%for(let i =1; i<=pages; i++){ %>
+    
+                    <% if(i==currentPage){ %>
+                        <li class="page-item active"><a class="page-link" href="/filtering/?page=<%= i %>"><%= i %></a></li>
+                    <% } else{ %>
+                        <li class="page-item"><a class="page-link" href="/filtering/?page=<%= i %>"><%= i %></a></li>
+                    <% } %>
+    
+                  
+                  <% } %>
+    
+    
+                  <% if(pages==currentPage){ %>
+                    <li class="page-item disabled">
+                        <a class="page-link disabled" >Next</a>
+                      </li>
+                <% } else{ %>
+                    <li class="page-item">
+                        <a class="page-link" href="/filtering/?page=<%=currentPage+1 %>">Next</a>
+                      </li>
+                <% } %>
+    
+    
+                  
+                </ul>
+              </nav>
+           
+        </div>
+    <% } else{ %>
+        <div class="container">
+            <div class="row text-center">
+              <div class="col-md-12 mt-5">
+                <div>
+                  <img src="/img/empty4.png" style="width: 44%;" alt="" />
+                </div>
+                <div class="">
+                    <h5>No Products are available Now</h5>
+                  <div class="cart__btn">
+                    <a href="/">Continue Your Shoping</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    <% } %>
+    
+    <!-- Shop End -->
+
+
+    <%- include('./partials/userFooter.ejs') %>
+
+
+
+
+
+   
+
+   

@@ -1,0 +1,58 @@
+<%- include('./partials/admin-dash.ejs') %>
+
+<br>
+<div class="col-lg">
+  <div class="card">
+      <div class="card-body">
+          <div class="card-title">Add Applience</div>
+          <hr>
+          <form action="/admin/addApplience" method="post">
+
+              <div class="form-group">
+                  <label for="input-4">Applience</label>
+                  <input class="form-control" name="Applience" type="text" placeholder="Applience" required >
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" class="btn btn-success px-5"> Add Applience</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  <!-- Bootstrap Table with Header - Dark -->
+  <div class="card">
+    <h5 class="card-header">Applience</h5>
+    <div class=" text-nowrap">
+      <table class="table">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>Applience</th>
+            
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+            <% Applience.forEach(function(x) { %>
+              <tr>
+                <td><%= x.Applience %></td>
+  
+                <td>
+                <form action="/admin/deleteapplience/<%= x._id %>" method="post">
+                    <button type="submit" class="btn  btn-danger" style="width: 100px;"
+                        onclick="return confirm('Are you sure you want to delete ?')"><i class="bx bx-trash me-1"></i></button>
+                </form>
+            </td>
+  
+                
+  
+            </tr>
+            <% }) %>
+          </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+              
+              <!--/ Bootstrap Table with Header Dark -->
+
+              <%- include('./partials/admin-footer.ejs') %>

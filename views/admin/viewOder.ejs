@@ -1,0 +1,121 @@
+<%- include('./partials/admin-dash.ejs') %>
+
+  <style>
+    .pendingText {
+      background-color: rgb(235, 5, 12);
+    }
+
+    .ShippedText {
+      background-color: rgb(252, 186, 3);
+    }
+
+    .deliveredText {
+      background-color: rgb(19, 189, 36);
+    }
+  </style>
+  <!-- Bootstrap Table with Header - Dark -->
+  <div class="card">
+    <h5 class="card-header">Orders</h5>
+    <div class=" text-nowrap">
+      <table class="table">
+        <thead class="table-dark text-center">
+          <tr>
+            <th>Subtotal</th>
+
+
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Mobile</th>
+
+            <th>Oder Date</th>
+            <th>Details</th>
+            <th>Status</th>
+            <th>Actions</th>
+
+          </tr>
+        </thead>
+        <tbody class="table-border-bottom-0">
+          <% orders.forEach((p,index)=> { %>
+            <tr>
+
+
+              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                  <%=p.totalAmount%>
+                </strong></td>
+              <td>
+                <%=p.Address.firstName%>
+              </td>
+              <td>
+                <%=p.Address.lastName%>
+              </td>
+              <td>
+                <%=p.Address.mobileNo%>
+              </td>
+              <td>
+                <%=p.createdAt%>
+              </td>
+
+              <td>
+                <a href="/admin/viewSingleOder/<%=p._id%>" class="btn btn-success" style="width: 100px">Details</a>
+              </td>
+
+
+              
+                <% if (p.orderStatus=='Canceled') { %>
+                  <td style="font-size: 1rem;" class="text-danger font-weight-bold"><%=p.orderStatus%></td>
+                  <%} else { %>
+                    <td>
+                      <select id="OStatus<%=index%>" style="width: 7.5rem;" onchange="statusOrder('<%=p._id%>','<%=index%>')"
+                        class="custom-select font-weight-bold bg-transparent text-success border-0 tm-select-accounts"
+                        name="orderStatus">
+      
+                        <option value="<%=p.orderStatus%>">
+                          <%=p.orderStatus%>
+                        </option>
+                        <option class="text-dark font-weight-bold" value="Placed">Placed</option>
+                        <option class="text-dark font-weight-bold" value="Processed">Processed</option>
+                        <option class="text-dark font-weight-bold" value="Shipped">Shipped</option>
+                        <option class="text-dark font-weight-bold" value="Delivered">Delivered</option>
+                      </select>
+                    </td>
+                  <% } %>
+            </tr>
+            <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!--/ Bootstrap Table with Header Dark -->
+
+  <%- include('./partials/admin-footer.ejs') %>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script>
+      function statusOrder(orderId, index) {
+        const status = $(`#OStatus${index}`).val()
+        console.log(orderId, status,'hiii');
+        console.log(status,'status');
+        $.ajax({
+          url: '/admin/status_change',
+          data: {
+            orderId,
+            status
+          },
+          method: 'post',
+          success: ((response) => {
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Order Changed',
+              customClass: 'swal-wide',
+              showConfirmButton: false,
+              timer: 1000
+            }).then(()=>{
+              location.reload()
+            })
+            
+          })
+        })
+  
+      }
+    </script>
