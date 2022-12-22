@@ -40,8 +40,90 @@
       <i class="checkmark">✓</i>
     </div>
       <h1 class="head1">Success</h1> 
+      <div class="row py-3 d-flex justify-content-center">
+     
+        <input type="button" class="btn btn-danger ml-5 text-center" id="btnExport" value="Download Invoice" />
+    </div>
       <p class="para">We received your purchase request;<br/> we'll be in touch shortly!</p>
       <a href="/shopView">Continue Shopping</a>
+
     </div>
+    <div class="col-lg-12 mt-5 mb-5">
+      <!-- col-lg-12 start here -->
+      <div class="invoice-items">
+          <div class="table-responsive" style="overflow: hidden; outline: none;" tabindex="0">
+              <table class="table" style="border:1px solid black" id="table_data">
+                  <thead class="thead-dark">
+                      <tr>
+                          <th class="per70 text-center">Products</th>
+                          <th class="per5 text-center">Quantity</th>
+                          <th class="per5 text-center">Price</th>
+                          <th class="per25 text-center">Total</th>
+                      </tr>
+                  </thead>
+                  <tbody >
+                    <% lastOrder.items.forEach(function(x) { %>
+                      <tr >
+                          <td style="border:1px solid black" >
+                              <p class="text-muted small">
+                                <%= x.name %>
+                              </p>
+                          </td>
+                          <td class="text-center"  style="border:1px solid black"><span><%= x.quantity %></span> </td>
+                          <td class="text-center"  style="border:1px solid black"><%= x.price %> </td>
+                          <td class="text-center"  style="border:1px solid black"><%= x.price *  x.quantity  %></td>
+                      </tr>
+                      <% }) %>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <th colspan="3" class="text-right">Payment Method</th>
+                          <th class="text-center"><%= lastOrder.paymentMethod %></th>
+                      </tr>
+                      <% if(couponApply){ %>
+                      
+                        <tr>
+                          <th colspan="3" class="text-right">Discount :</th>
+                          <th class="text-center">- ₹ <%= couponDiscount %></th>
+                      </tr>
+                    <% }  %>
+
+                 
+
+                      <tr>
+                          <th colspan="3" class="text-right">Grand Total:</th>
+                          <th class="text-center">₹ <%= lastOrder.totalAmount %> </th>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>
+      </div>
+      <div class="invoice-footer mt25">
+          <p class="text-center">Thank you for shopping with us!
+              <br>
+              <b>Your order will be delivered soon...</b>
+          </p>
+      </div>
+  </div>
    
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <script type="text/javascript">
+    $("body").on("click", "#btnExport", function () {
+        html2canvas($('#table_data')[0], {
+            onrendered: function (canvas) {
+                var data = canvas.toDataURL();
+                var docDefinition = {
+                    content: [{
+                        image: data,
+                        width: 500
+                    }]
+                };
+                pdfMake.createPdf(docDefinition).download("invoice.pdf");
+            }
+        });
+    });
+</script>
+
     <%- include('./partials/userFooter.ejs') %>
+ 

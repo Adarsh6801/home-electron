@@ -243,9 +243,17 @@ module.exports = {
           .skip((pageNum - 1) * perPage)
           .limit(perPage);
       });
-      console.log(products,'products');
-      const wishedProduct= await wishlistModel.find({userId})
-      console.log(wishedProduct);
+      let userWishlist= await wishlistModel.findOne({userId:userId})
+      console.log(userWishlist,'userWishlist');
+      for (let i = 0; i < products.length; i++) {
+        for (let j = 0; j < userWishlist.length; j++) {
+            if (userWishlist.myWishlist[j].ProductId == products[i]._id) {
+                products[i].fav = true;
+            }
+        }
+    }
+    
+    
 
     res.render("user/shopView", {
       user,
@@ -257,7 +265,7 @@ module.exports = {
       currentPage: pageNum,
       totalDocuments: docCount,
       pages: Math.ceil(docCount / perPage),
-      wishedProduct
+      
     });
   },
 
@@ -1043,6 +1051,15 @@ module.exports = {
     } else {
       var cartLength = 0;
     }
+    let lastOrder= await orderModel.find({userId:userId})
+    let length= lastOrder.length;
+    console.log(length);
+    length=length-1;
+    lastOrder= await orderModel.findOne({userId:userId}).skip(length)
+    let discount= await cartModel.findOne({userId:userId})
+    let couponDiscount=discount.couponDiscount;
+    let couponApply= userDetails.applyCoupon
+    console.log(couponApply);
     res.render("user/oderSuccessPage", {
       user,
       name: req.session.user,
@@ -1051,6 +1068,9 @@ module.exports = {
       userDetails,
       category,
       cartLength,
+      lastOrder,
+      couponDiscount,
+      couponApply
     });
   },
   oderView: async (req, res) => {
@@ -1281,6 +1301,8 @@ applyCoupon: async (req,res)=>{
                     usedCoupon:{
                         couponId:coupon._id,
                         code:coupon.couponCode,
+                        couponUsed:date,
+                        couponName:couponName
                     }
                 }
             })
@@ -1326,6 +1348,8 @@ applyCoupon: async (req,res)=>{
                                 usedCoupon:{
                                     couponId:coupon._id,
                                     code:coupon.couponCode,
+                                    couponUsed:date,
+                                    couponName:couponName
                                 }
                             }
                         })
@@ -1385,6 +1409,7 @@ verifyPayment: async (req,res)=>{
                 },
             }
         );
+        await userModel.findOneAndUpdate({_id:userId},{$set:{applyCoupon:false}})
         res.json({ status: true });
     } else {
         res.json({ status: false });
@@ -1417,5 +1442,57 @@ newPassword: async (req,res)=>{
  }
  
 },
+usedCouponPage:async (req,res)=>{
+  let userId = req.session.userId;
+  const cartView = await cartModel.findOne({ userId });
+  const userDetails = await userModel.findOne({ userId });
+  const category = await CategoryModel.find();
+  const applience = await applienceModel.find();
+  const products = await ProductModel.find({})
+    .populate("Category")
+    .populate("Applience");
+    let user = req.session.userLogin;
+  if (cartView) {
+    var cartLength = cartView.products.length;
+  } else {
+    var cartLength = 0;
+  }
+  let usedCoupon= await userModel.findById({_id:userId})
+
+  console.log(usedCoupon,'usedCoupon');
+  res.render('user/usedCouponPage',{ user,
+    name: req.session.user,
+    applience,
+    products,
+    userDetails,
+    category,
+    cartLength,
+    usedCoupon})
+},
+contactPage: async (req,res)=>{
+  let userId = req.session.userId;
+  const cartView = await cartModel.findOne({ userId });
+  const userDetails = await userModel.findOne({ userId });
+  const category = await CategoryModel.find();
+  const applience = await applienceModel.find();
+  const products = await ProductModel.find({})
+    .populate("Category")
+    .populate("Applience");
+    let user = req.session.userLogin;
+  if (cartView) {
+    var cartLength = cartView.products.length;
+  } else {
+    var cartLength = 0;
+  }
+  res.render('user/Contact',{
+    user,
+    name: req.session.user,
+    applience,
+    products,
+    userDetails,
+    category,
+    cartLength,
+  })
+}
 
 };

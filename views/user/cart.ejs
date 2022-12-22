@@ -83,14 +83,21 @@
                          <% } else { %>
                             <div class="d-flex justify-content-between mb-3">
                                 <h6>Subtotal</h6>
-                                <h6 id="total"><%=cartProducts.total%></h6>
+                                <h6 id="total"><%=cartProducts.total  %></h6>
                             </div>
                          <% } %>
-                       
-                        <div class="d-flex justify-content-between mb-3">
-                            <h6>Coupon Discount</h6>
-                            <h6 id="coupon-discount"><%=cartProducts.couponDiscount%></h6>
-                        </div>
+                         <% if(applayCoupon){ %>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6>Coupon Discount</h6>
+                                <h6 id="coupon-discount"><%=cartProducts.couponDiscount%></h6>
+                            </div>
+                        <% } else{ %>
+                            <div class="d-flex justify-content-between mb-3">
+                                <h6>Coupon Discount</h6>
+                                <h6 id="coupon-discount">0</h6>
+                            </div>
+                        <% } %>
+                     
                         
                         <% if (cartProducts.total<1000) { %>
                             <div class="d-flex justify-content-between">
@@ -102,15 +109,8 @@
                                 <h6 class="font-weight-medium text-success">Free Shipping</h6>
                                
                             </div>
-                         <% } %>
-
-                            
-                            
-                        
+                         <% } %>          
                     </div>
-
-
-                    
                         <div class="pt-2">
                             <div class="d-flex justify-content-between mt-2">
                                 <h5>Total</h5>

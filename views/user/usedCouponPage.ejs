@@ -1,0 +1,26 @@
+<%- include('./partials/userHeader.ejs') %>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Coupon Id</th>
+        <th scope="col">Coupon Name</th>
+        
+        <th scope="col">Coupon Code</th>
+        <th scope="col">Used Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% usedCoupon.usedCoupon.forEach((c) => { %>
+      <tr>
+      
+        <td><%=c.couponId%></td>
+        <td><%=c.couponName%></td>
+        <td>@<%=c.code%></td>
+        <td>@<%=c.couponUsed%></td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+
+<%- include('./partials/userFooter.ejs') %>

@@ -115,8 +115,13 @@
 
 
 
-                                        <a class="btn btn-outline-dark btn-square" onclick= "addTocart('<%= product._id %>','<%= product.productName %>','<%= product.Price %>')"><i class="fa fa-shopping-cart"></i></a>     
-                                                <a class="btn btn-outline-dark btn-square " id="wish" onclick="addToWishlist('<%= product._id %>','<%= product.productName %>')" ><i class="far fa-heart "></i></a>
+                                        <a class="btn btn-outline-dark btn-square" onclick= "addTocart('<%= product._id %>','<%= product.productName %>','<%= product.Price %>')"><i class="fa fa-shopping-cart"></i></a>  
+                                        <% if(product.fav){ %>
+                                            <a class="btn btn-outline-dark btn-square active" id="wish" onclick="addToWishlist('<%= product._id %>','<%= product.productName %>')" ><i class="far fa-heart "></i></a>
+                                        <% } else{ %>
+                                            <a class="btn btn-outline-dark btn-square " id="wish" onclick="addToWishlist('<%= product._id %>','<%= product.productName %>')" ><i class="far fa-heart "></i></a>
+                                        <% } %>   
+                                               
                                         
                                            
                                         

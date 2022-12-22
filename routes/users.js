@@ -33,6 +33,8 @@ router.get('/cancelOrder/:id',userController.cancelOrder)
 router.get('/user_address/delete',userController.userAddressDelete);
 router.get('/forgotPass',userController.forgotPasswordPage)
 router.get('/couponView',userAuth.sessionUser,userController.couponViewPage)
+router.get('/usedCoupons',userController.usedCouponPage)
+router.get('/contact',userController.contactPage)
 
 //--------------------------------------------POST METHOD-----------------------------------------------------
 
