@@ -61,7 +61,7 @@ app.use(bodyParser.urlencoded({
   app.use(nocache());
 app.use('/',usersRouter);
 app.use('/admin',adminRouter);
-mongoose.connect("mongodb+srv://adarsh:09sBQW7NRXgSmxUH@cluster0.g2edsqh.mongodb.net/cluster0",()=>{
+mongoose.connect("mongodb+srv://adarsh:09sBQW7NRXgSmxUH@cluster0.g2edsqh.mongodb.net/cluster0?retryWrites=true&w=majority",()=>{
     console.log("Mogodb is connected");
 },
 e=>console.error(e)
