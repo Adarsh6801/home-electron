@@ -973,7 +973,10 @@ module.exports = {
     }
   },
   userOrdering: async (req, res) => {
+
     let userId = req.session.userId;
+    await userModel.findOneAndUpdate({_id:userId},{$set:{applyCoupon:false}}).then((re)=>{console.log(re,'yssssss');})
+    
     const oderBody = req.body;
     const User = await UserModel.findOne({ userId });
     const codOrder = User.Address.at(oderBody.id);
@@ -1291,18 +1294,18 @@ applyCoupon: async (req,res)=>{
     let date = new Date()
     console.log(CouponCode, total);
     if (user.applyCoupon) {
+      console.log('ajanassss');
         await userModel.updateOne({_id:userId} ,{
                 $set:{
                     applyCoupon:false
                 }
             })
+            console.log(coupon,"=======");
         await userModel.updateOne({_id:userId} ,{
                 $pull:{
                     usedCoupon:{
                         couponId:coupon._id,
                         code:coupon.couponCode,
-                        couponUsed:date,
-                        couponName:couponName
                     }
                 }
             })
@@ -1343,16 +1346,18 @@ applyCoupon: async (req,res)=>{
                                     applyCoupon:true
                                 }
                         })
+                        console.log('Hii');
                         await userModel.updateOne({_id:userId} ,{
                             $push:{
                                 usedCoupon:{
                                     couponId:coupon._id,
                                     code:coupon.couponCode,
                                     couponUsed:date,
-                                    couponName:couponName
+                                    couponName:coupon.couponName
                                 }
                             }
                         })
+                        console.log('Hii');
                         res.json({ success: true })
                     } else {
                         res.json({ maxRadeem: coupon.maxRadeemAmount })
@@ -1409,7 +1414,7 @@ verifyPayment: async (req,res)=>{
                 },
             }
         );
-        await userModel.findOneAndUpdate({_id:userId},{$set:{applyCoupon:false}})
+        await userModel.findOneAndUpdate({_id:userId},{$set:{applyCoupon:false}}).then((re)=>{console.log(re,'yssssss');})
         res.json({ status: true });
     } else {
         res.json({ status: false });

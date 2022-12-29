@@ -61,14 +61,17 @@ app.use(bodyParser.urlencoded({
   app.use(nocache());
 app.use('/',usersRouter);
 app.use('/admin',adminRouter);
-mongoose.connect("mongodb://localhost:27017/ecommercedb",{
-    useNewUrlParser:true,
-    useUnifiedTopology:true
-},()=>{
+mongoose.connect("mongodb+srv://adarsh:09sBQW7NRXgSmxUH@cluster0.g2edsqh.mongodb.net/cluster0",()=>{
     console.log("Mogodb is connected");
 },
 e=>console.error(e)
 )
+//09sBQW7NRXgSmxUH          mongodb atlas adarsh password
+
+
+
+
+
 
 
 const PORT =4111;
