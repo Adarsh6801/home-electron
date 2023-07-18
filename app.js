@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 // const logger = require('morgan');
 const mongoose=require('mongoose');
 const multer=require('multer')
-const session=require('cookie-session');
+const session=require('express-session');
 
 const  nocache=require('nocache')
 
@@ -61,7 +61,7 @@ app.use(bodyParser.urlencoded({
   app.use(nocache());
 app.use('/',usersRouter);
 app.use('/admin',adminRouter);
-mongoose.connect("mongodb+srv://adarsh:09sBQW7NRXgSmxUH@cluster0.g2edsqh.mongodb.net/cluster0?retryWrites=true&w=majority",()=>{
+mongoose.connect("mongodb+srv://ajnaskp67:W25SduyAT27lcr0s@cluster0.ykjfftm.mongodb.net/?retryWrites=true&w=majority",()=>{
     console.log("Mogodb is connected");
 },
 e=>console.error(e)
@@ -74,5 +74,5 @@ e=>console.error(e)
 
 
 
-const PORT =4111;
+const PORT =3000;
 app.listen(PORT, console.log("Server don start for port: " + PORT))
