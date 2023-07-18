@@ -7,7 +7,7 @@ var bodyParser = require('body-parser')
 // const logger = require('morgan');
 const mongoose=require('mongoose');
 const multer=require('multer')
-const session=require('express-session');
+const session=require('cookie-session');
 
 const  nocache=require('nocache')
 
